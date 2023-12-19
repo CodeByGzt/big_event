@@ -1,2 +1,2 @@
-# big_event
-大事件后台
+# 大事件后台
+数据库mysql8，参数校验框架Validation，缓存技术redis，认证技术jwt，数据库框架mybatis

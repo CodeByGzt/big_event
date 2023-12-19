@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gzt.mapper.ArticleMapper">
+    <select id="selectArticleByPage" resultType="com.gzt.pojo.vo.ArticleVo">
+        select a.id, a.title, a.content,a.category_id, a.cover_img, a.state,c.category_name,  a.create_user, a.create_time, a.update_time
+        from article as a,category as c
+        <!-- where标签会自动去掉“标签体内前面多余的and/or” -->
+        <where>
+            <!-- 使用if标签，让我们可以有选择的加入SQL语句的片段。这个SQL语句片段是否要加入整个SQL语句，就看if标签判断的结果是否为true -->
+            <!-- 在if标签的test属性中，可以访问实体类的属性，不可以访问数据库表的字段 -->
+            <if test="categoryId != null and categoryId != 0">
+                <!-- 在if标签内部，需要访问接口的参数时还是正常写#{} -->
+                and a.category_id = #{categoryId}
+            </if>
+            <if test="state != null and state != '全部'">
+                and a.`state` = #{state}
+            </if>
+                and a.category_id = c.id
+        </where>
+    </select>
+</mapper>
